@@ -4,8 +4,6 @@ import (
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
-	"github.com/golang-jwt/jwt"
-	"github.com/golang-jwt/jwt/v5"
 )
 
 var jwtKey = []byte("JWT_SECRET_KEY")
@@ -26,8 +24,8 @@ func GenerateJWT(username string) (string, error) {
 		},
 	}
 
-	token := jwt.NewWithClaims(jwt.SigningMethodH256, claims)
-	return token.signedString(jwtKey)
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+	return token.SignedString(jwtKey)
 }
 
 // Validates the jwt token
