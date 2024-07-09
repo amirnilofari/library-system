@@ -11,7 +11,6 @@ import (
 var templ = template.Must(template.ParseGlob("templates/*.html"))
 
 // BooksHandler handles requests to list books
-
 func BooksHandler(db *sql.DB) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		books, err := repository.GetAllBooks(db)

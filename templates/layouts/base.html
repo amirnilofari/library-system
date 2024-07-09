@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library System</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <script src="https://unpkg.com/htmx.org@1.5.0"></script>
+</head>
+<body>
+    <header>
+        <h1>Library System</h1>
+        <nav>
+            <a href="/" hx-get="/" hx-trigger="click" hx-target="#content">Home</a>
+            <a href="/books" hx-get="/books" hx-trigger="click" hx-target="#content">Books</a>
+        </nav>
+    </header>
+    <main id="content">
+        {{ template "content" . }}
+    </main>
+    <script src="/static/js/scripts.js"></script>
+</body>
+</html>

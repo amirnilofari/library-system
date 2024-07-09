@@ -1,6 +1,7 @@
 package main
 
 import (
+	"html/template"
 	"log"
 	"net/http"
 
@@ -15,7 +16,7 @@ func main() {
 
 	// initialize database
 	database.Init(cfg)
-	db := database.DB
+	//db := database.DB
 
 	// Initialize router
 	r := mux.NewRouter()
@@ -28,4 +29,7 @@ func main() {
 	}
 }
 
-func homeHandler(w http.ResponseWriter, r *http.Request) {}
+func homeHandler(w http.ResponseWriter, r *http.Request) {
+	tmpl, _ := template.ParseFiles("templates/layouts/base.html", "templates/pages/home.html")
+	tmpl.ExecuteTemplate(w, "base", nil)
+}
