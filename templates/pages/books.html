@@ -1,0 +1,7 @@
+{{ define "content" }}
+<h2>Books</h2>
+<button hx-get="/books/new" hx-trigger="click" hx-target="#content">Add New Book</button>
+<div id="book-list">
+    {{ template "book_list" . }}
+</div>
+{{ end }}

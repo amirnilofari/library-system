@@ -1,0 +1,10 @@
+{{ define "user_list" }}
+{{ range .Users }}
+<div>
+    <h3>{{ .FirstName }} {{ .LastName }}</h3>
+    <p>{{ .Email }}</p>
+</div>
+{{ else }}
+<p>No users available.</p>
+{{ end }}
+{{ end }}

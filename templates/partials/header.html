@@ -1,0 +1,10 @@
+{{ define "header" }}
+<header>
+    <h1>Library System</h1>
+    <nav>
+        <a href="/" hx-get="/" hx-trigger="click" hx-target="#content">Home</a>
+        <a href="/books" hx-get="/books" hx-trigger="click" hx-target="#content">Books</a>
+        <a href="/users" hx-get="/users" hx-trigger="click" hx-target="#content">Users</a>
+    </nav>
+</header>
+{{ end }}
