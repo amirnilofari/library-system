@@ -17,6 +17,6 @@ func (s *BookService) GetAllBooks() ([]model.Book, error) {
 }
 
 // creates a new book
-func (s *BookService) CreateBook(title, author string) error {
-	return repository.CreateBook(s.DB, title, author)
+func (s *BookService) CreateBook(title, author, published_date, isbn, available_copies string) error {
+	return repository.CreateBook(s.DB, title, author, published_date, isbn, available_copies)
 }

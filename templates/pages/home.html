@@ -1,4 +1,17 @@
 {{ define "content" }}
 <h2>Welcome to the Library System</h2>
-<p>This is the home page.</p>
+<br>
+<h2>Books</h2>
+<div class="book-form">
+    {{ template "book_form" . }}
+</div>
+<div hx-get="/books" class="book-list">
+    {{ template "book_list" . }}
+</div>
+<hr>
+<h2>Users</h2>
+<button hx-get="/users/new" hx-trigger="click" hx-target="#content">Add New User</button>
+<div id="user-list">
+    {{ template "user_list" . }}
+</div>
 {{ end }}

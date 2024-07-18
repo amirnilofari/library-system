@@ -1,8 +1,20 @@
 {{ define "book_list" }}
+<h3>Book List</h3>
 {{ range .Books }}
 <div>
-    <h3>{{ .Title }}</h3>
-    <p>{{ .Author }}</p>
+    <h4>{{ .Title }}</h4>
+    <p>Author: {{ .Author }}</p>
+    {{ if .PublishedDate.Valid }}
+    <p>Published Date: {{ .PublishedDate.Time.Format "2006-01-02" }}</p>
+    {{ else }}
+    <p>Published Date: N/A</p>
+    {{ end }}
+    {{ if .ISBN.Valid }}
+    <p>ISBN: {{ .ISBN.String }}</p>
+    {{ else }}
+    <p>ISBN: N/A</p>
+    {{ end }}
+    <p>Available Copies: {{ .AvailableCopies }}</p>
 </div>
 {{ else }}
 <p>No books available.</p>

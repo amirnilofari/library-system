@@ -8,12 +8,9 @@ import (
 	"github.com/amirnilofari/library-system/pkg/repository"
 )
 
-var templ *template.Template
-
 func init() {
-	templ = template.Must(template.New("base").ParseGlob("templates/layouts/*.html"))
-	templ = template.Must(templ.ParseGlob("templates/partials/*.html"))
-	templ = template.Must(templ.ParseGlob("templates/pages/*.html"))
+	template.Must(templ.ParseGlob("templates/index.html"))
+	template.Must(templ.ParseGlob("templates/partials/*.html"))
 }
 
 // list users
