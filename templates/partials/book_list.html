@@ -1,22 +1,41 @@
 {{ define "book_list" }}
 <h3>Book List</h3>
-{{ range .Books }}
-<div>
-    <h4>{{ .Title }}</h4>
-    <p>Author: {{ .Author }}</p>
-    {{ if .PublishedDate.Valid }}
-    <p>Published Date: {{ .PublishedDate.Time.Format "2006-01-02" }}</p>
-    {{ else }}
-    <p>Published Date: N/A</p>
-    {{ end }}
-    {{ if .ISBN.Valid }}
-    <p>ISBN: {{ .ISBN.String }}</p>
-    {{ else }}
-    <p>ISBN: N/A</p>
-    {{ end }}
-    <p>Available Copies: {{ .AvailableCopies }}</p>
-</div>
-{{ else }}
-<p>No books available.</p>
-{{ end }}
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Published Date</th>
+            <th>ISBN</th>
+            <th>Available Copies</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{ range .Books }}
+        <tr>
+            <td>{{ .Title }}</td>
+            <td>{{ .Author }}</td>
+            <td>
+                {{ if .PublishedDate.Valid }}
+                {{ .PublishedDate.Time.Format "2006-01-02" }}
+                {{ else }}
+                N/A
+                {{ end }}
+            </td>
+            <td>
+                {{ if .ISBN.Valid }}
+                {{ .ISBN.String }}
+                {{ else }}
+                N/A
+                {{ end }}
+            </td>
+            <td>{{ .AvailableCopies }}</td>
+        </tr>
+        {{ else }}
+        <tr>
+            <td colspan="5">No books available.</td>
+        </tr>
+        {{ end }}
+    </tbody>
+</table>
 {{ end }}

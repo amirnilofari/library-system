@@ -2,14 +2,13 @@ package model
 
 import (
 	"database/sql"
-	"time"
 )
 
 type Book struct {
 	ID              int            `json:"id"`
 	Title           string         `json:"title"`
 	Author          string         `json:"author"`
-	PublishedDate   time.Time      `json:"published_date"`
+	PublishedDate   sql.NullTime   `json:"published_date"`
 	ISBN            sql.NullString `json:"isbn"`
 	AvailableCopies sql.NullInt64  `json:"available_copies"`
 }

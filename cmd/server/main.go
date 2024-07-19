@@ -30,8 +30,8 @@ func main() {
 
 	// Initialize router
 	r := mux.NewRouter()
-	r.HandleFunc("/", handlers.HomeHandler).Methods("GET")
-	r.HandleFunc("/books", handlers.BooksHandler(db)).Methods("GET")
+	r.HandleFunc("/", handlers.HomeHandler(db)).Methods("GET")
+	//r.HandleFunc("/books", handlers.BooksHandler(db)).Methods("GET")
 	//r.HandleFunc("/books/new", handlers.NewBookHandler).Methods("GET")
 	r.HandleFunc("/add-book", handlers.CreateBookHandler(db)).Methods("POST")
 	r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("./static/"))))

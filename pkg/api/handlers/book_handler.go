@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"text/template"
+	"time"
 
 	"github.com/amirnilofari/library-system/pkg/repository"
 )
@@ -18,14 +19,7 @@ func init() {
 }
 
 // HomeHandler handles requests to the home page
-func HomeHandler(w http.ResponseWriter, r *http.Request) {
-	templ.ExecuteTemplate(w, "base", map[string]interface{}{
-		"Title": "Home",
-	})
-}
-
-// BooksHandler handles requests to list books
-func BooksHandler(db *sql.DB) http.HandlerFunc {
+func HomeHandler(db *sql.DB) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		books, err := repository.GetAllBooks(db)
 		if err != nil {
@@ -33,11 +27,8 @@ func BooksHandler(db *sql.DB) http.HandlerFunc {
 			http.Error(w, "Unable to fetch books", http.StatusInternalServerError)
 			return
 		}
-		for _, v := range books {
-			fmt.Println(v)
-		}
 		err = templ.ExecuteTemplate(w, "base", map[string]interface{}{
-			"Title": "Books",
+			"Title": "Home",
 			"Books": books,
 		})
 		if err != nil {
@@ -47,6 +38,29 @@ func BooksHandler(db *sql.DB) http.HandlerFunc {
 	}
 }
 
+// // BooksHandler handles requests to list books
+// func BooksHandler(db *sql.DB) http.HandlerFunc {
+// 	return func(w http.ResponseWriter, r *http.Request) {
+// 		books, err := repository.GetAllBooks(db)
+// 		if err != nil {
+// 			log.Printf("Unable to fetch books: %v", err)
+// 			http.Error(w, "Unable to fetch books", http.StatusInternalServerError)
+// 			return
+// 		}
+// 		for _, v := range books {
+// 			fmt.Println(v)
+// 		}
+// 		err = templ.ExecuteTemplate(w, "base", map[string]interface{}{
+// 			"Title": "Books",
+// 			"Books": books,
+// 		})
+// 		if err != nil {
+// 			log.Printf("Error rendering books template: %v", err)
+// 			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+// 		}
+// 	}
+// }
+
 func CreateBookHandler(db *sql.DB) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		title := r.FormValue("title")
@@ -55,7 +69,10 @@ func CreateBookHandler(db *sql.DB) http.HandlerFunc {
 		isbn := r.FormValue("isbn")
 		availableCopies := r.FormValue("available_copies")
 
-		err := repository.CreateBook(db, title, author, publishedDate, isbn, availableCopies)
+		parsedDate, _ := time.Parse("2006-01-02", publishedDate)
+		fmt.Println("unparsed", publishedDate)
+		fmt.Println("parsed: ", parsedDate)
+		err := repository.CreateBook(db, title, author, isbn, availableCopies, publishedDate)
 		if err != nil {
 			log.Printf("Unable to create book: %v", err)
 			http.Error(w, "Unable to create book", http.StatusInternalServerError)
